@@ -14,7 +14,7 @@ export default function FooterComponent() {
       <Container>
         <Content className={styles.content} textAlign="center">
           <p>
-            {`Copyright Ⓒ ${year} MERN Boilerplate. All Rights Reserved.`}
+            {`Copyright Ⓒ ${year} TaskBreakdown. All Rights Reserved.`}
           </p>
         </Content>
       </Container>

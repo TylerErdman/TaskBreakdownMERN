@@ -21,7 +21,6 @@ export const attemptAddTodo = text => dispatch =>
   postTodo({ text })
     .then(data => {
       const todo = R.omit(['Id'], R.assoc('id', data.todo._id, snakeToCamelCase(data.todo)));
-
       dispatch(addTodo(todo));
       return data.user;
     })
@@ -35,10 +34,10 @@ export const attemptToggleCompleteTodo = id => dispatch =>
     })
     .catch(dispatchError(dispatch));
 
-export const attemptUpdateTodo = (id, text) => dispatch =>
-  putTodo({ id, text })
+export const attemptUpdateTodo = (id, text, columnAt) => dispatch =>
+  putTodo({ id, text, columnAt })
     .then(data => {
-      dispatch(updateTodo({ id, text, updatedAt: data.todo.updated_at }));
+      dispatch(updateTodo({ id, text, updatedAt: data.todo.updated_at, columnAt: data.todo.columnAt }));
       return data;
     })
     .catch(dispatchError(dispatch));

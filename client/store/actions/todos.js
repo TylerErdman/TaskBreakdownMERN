@@ -22,10 +22,11 @@ export const toggleCompleteTodo = id => ({
   id,
 });
 
-export const updateTodo = ({ id, text, updatedAt }) => ({
+export const updateTodo = ({ id, columnAt, text, updatedAt }) => ({
   type: UPDATE_TODO,
   updatedAt,
   id,
+  columnAt,
   text,
 });
 

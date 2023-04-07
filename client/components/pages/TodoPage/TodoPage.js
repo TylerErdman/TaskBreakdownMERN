@@ -33,18 +33,14 @@ export default function TodoPage() {
     <div className="todo-page page">
       <Section className="todo-section">
         <Title size="1" className="has-text-centered">
-          Todo List:
+          Project 1:
         </Title>
         <Columns>
-          <Column size="8" offset="2" className="has-text-centered">
+          <Column size="3" offset="2" className="has-text-centered">
             <AddTodo />
           </Column>
         </Columns>
-        <Columns>
-          <Column size="8" offset="2" className="has-text-left">
-            <TodoList />
-          </Column>
-        </Columns>
+        <TodoList />
       </Section>
     </div>
   );

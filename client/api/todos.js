@@ -20,7 +20,7 @@ export const putToggleCompleteTodo = info =>
 
 export const putTodo = info =>
   request.put('/api/todos')
-    .send(info)
+    .send({ ...info, columnAt: info.columnAt })
     .then(handleSuccess)
     .catch(handleError);
 

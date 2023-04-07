@@ -6,6 +6,7 @@ import R from 'ramda';
 import Section from 'react-bulma-companion/lib/Section';
 import Container from 'react-bulma-companion/lib/Container';
 import Title from 'react-bulma-companion/lib/Title';
+import Content from 'react-bulma-companion/lib/Content';
 
 import styles from './styles.module.css';
 
@@ -24,8 +25,15 @@ export default function WelcomePage() {
       <Section>
         <Container>
           <Title size="1">
-            Welcome Page!
+            Welcome!
           </Title>
+          <Content>
+            Hello, this is TaskBreakdown!
+            This is designed as a simple tool to create and manage small projects as a learning experience.
+          </Content>
+          <Content>
+            This was created by Tyler Erdman.
+          </Content>
         </Container>
       </Section>
     </div>

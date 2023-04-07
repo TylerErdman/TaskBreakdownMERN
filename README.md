@@ -115,7 +115,7 @@ You can now start updating files in your client to begin working on your own pro
 - scripts
 ```
 
-Component Heirarchy:
+Component Hierarchy:
 
 Environment > Pages > Organisms > Molecules > Atoms
 

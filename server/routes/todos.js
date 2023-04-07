@@ -54,6 +54,12 @@ router.put('/', requireAuth, (req, res) => {
     } else {
       todo.text = req.body.text;
       todo.updated_at = Date.now();
+
+      // Add this line to update the columnAt property
+      if (req.body.columnAt !== undefined) {
+        todo.columnAt = req.body.columnAt;
+      }
+
       todo.save((err, savedTodo) => {
         if (err) {
           res.status(400).send({ message: 'Update todo failed', err });

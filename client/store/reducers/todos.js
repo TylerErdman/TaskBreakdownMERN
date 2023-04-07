@@ -25,6 +25,7 @@ export function todo(state = {
       return update(state, {
         text: { $set: action.text },
         updatedAt: { $set: action.updatedAt },
+        columnAt: { $set: action.columnAt },
       });
     default:
       return state;

@@ -10,6 +10,8 @@ import { faPencil } from '@fortawesome/free-solid-svg-icons/faPencil';
 import { faFloppyDisk } from '@fortawesome/free-solid-svg-icons/faFloppyDisk';
 import { faSquare } from '@fortawesome/free-regular-svg-icons/faSquare';
 import { faSquareCheck } from '@fortawesome/free-regular-svg-icons/faSquareCheck';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft';
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons/faArrowRight';
 
 import Box from 'react-bulma-companion/lib/Box';
 import Media from 'react-bulma-companion/lib/Media';
@@ -23,7 +25,7 @@ import ConfirmModal from '_components/organisms/ConfirmModal';
 
 const fromNow = date => formatDistanceToNow(parseISO(date), { addSuffix: true });
 
-export default function Todo({ id, text, completed, createdAt, updatedAt }) {
+export default function Todo({ id, text, columnAt, completed, createdAt, updatedAt }) {
   const dispatch = useDispatch();
 
   const [currentText, setCurrentText] = useState(text);
@@ -31,6 +33,7 @@ export default function Todo({ id, text, completed, createdAt, updatedAt }) {
   const [confirm, setConfirm] = useState(false);
   const [updatedMessage, setUpdatedMessage] = useState('');
   const [createdMessage, setCreatedMessage] = useState('');
+  const [currentColumn, setCurrentColumn] = useState(columnAt);
 
   useEffect(() => {
     const updateMessages = () => {
@@ -65,6 +68,22 @@ export default function Todo({ id, text, completed, createdAt, updatedAt }) {
 
   const deleteTodo = () => dispatch(attemptDeleteTodo(id));
 
+  const moveLeft = () => {
+    if (parseInt(currentColumn, 10) > 0) {
+      const newColumn = (parseInt(currentColumn, 10) - 1).toString();
+      setCurrentColumn(newColumn);
+      dispatch(attemptUpdateTodo(id, text, newColumn));
+    }
+  };
+
+  const moveRight = () => {
+    if (parseInt(currentColumn, 10) < 2) {
+      const newColumn = (parseInt(currentColumn, 10) + 1).toString();
+      setCurrentColumn(newColumn);
+      dispatch(attemptUpdateTodo(id, text, newColumn));
+    }
+  };
+
   return (
     <Box className="todo" component="li">
       <Media>
@@ -81,6 +100,12 @@ export default function Todo({ id, text, completed, createdAt, updatedAt }) {
               <small>
                 {`created ${createdMessage}`}
               </small>
+              <Icon onClick={moveLeft} onKeyPress={moveLeft}>
+                <FontAwesomeIcon icon={faArrowLeft} size="lg" />
+              </Icon>
+              <Icon onClick={moveRight} onKeyPress={moveRight}>
+                <FontAwesomeIcon icon={faArrowRight} size="lg" />
+              </Icon>
             </p>
             {edit ? (
               <Textarea
@@ -137,6 +162,7 @@ export default function Todo({ id, text, completed, createdAt, updatedAt }) {
 Todo.propTypes = {
   id: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
+  columnAt: PropTypes.string.isRequired,
   completed: PropTypes.bool.isRequired,
   createdAt: PropTypes.string.isRequired,
   updatedAt: PropTypes.string,
