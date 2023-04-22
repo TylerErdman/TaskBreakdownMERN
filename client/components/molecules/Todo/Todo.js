@@ -8,8 +8,6 @@ import { faTrashCan } from '@fortawesome/free-solid-svg-icons/faTrashCan';
 import { faBan } from '@fortawesome/free-solid-svg-icons/faBan';
 import { faPencil } from '@fortawesome/free-solid-svg-icons/faPencil';
 import { faFloppyDisk } from '@fortawesome/free-solid-svg-icons/faFloppyDisk';
-import { faSquare } from '@fortawesome/free-regular-svg-icons/faSquare';
-import { faSquareCheck } from '@fortawesome/free-regular-svg-icons/faSquareCheck';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons/faArrowLeft';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons/faArrowRight';
 
@@ -20,12 +18,12 @@ import Level from 'react-bulma-companion/lib/Level';
 import Icon from 'react-bulma-companion/lib/Icon';
 import Textarea from 'react-bulma-companion/lib/Textarea';
 
-import { attemptToggleCompleteTodo, attemptUpdateTodo, attemptDeleteTodo } from '_store/thunks/todos';
+import { attemptUpdateTodo, attemptDeleteTodo } from '_store/thunks/todos';
 import ConfirmModal from '_components/organisms/ConfirmModal';
 
 const fromNow = date => formatDistanceToNow(parseISO(date), { addSuffix: true });
 
-export default function Todo({ id, text, columnAt, completed, createdAt, updatedAt }) {
+export default function Todo({ id, text, columnAt, createdAt, updatedAt }) {
   const dispatch = useDispatch();
 
   const [currentText, setCurrentText] = useState(text);
@@ -64,7 +62,7 @@ export default function Todo({ id, text, columnAt, completed, createdAt, updated
     }
   };
 
-  const toggleCompleteTodo = () => dispatch(attemptToggleCompleteTodo(id));
+  // const toggleCompleteTodo = () => dispatch(attemptToggleCompleteTodo(id));
 
   const deleteTodo = () => dispatch(attemptDeleteTodo(id));
 
@@ -87,25 +85,12 @@ export default function Todo({ id, text, columnAt, completed, createdAt, updated
   return (
     <Box className="todo" component="li">
       <Media>
-        <Media.Left>
-          <Icon onClick={toggleCompleteTodo} onKeyPress={toggleCompleteTodo}>
-            {completed
-              ? <FontAwesomeIcon icon={faSquareCheck} size="lg" />
-              : <FontAwesomeIcon icon={faSquare} size="lg" />}
-          </Icon>
-        </Media.Left>
         <Media.Content>
           <Content>
             <p>
               <small>
                 {`created ${createdMessage}`}
               </small>
-              <Icon onClick={moveLeft} onKeyPress={moveLeft}>
-                <FontAwesomeIcon icon={faArrowLeft} size="lg" />
-              </Icon>
-              <Icon onClick={moveRight} onKeyPress={moveRight}>
-                <FontAwesomeIcon icon={faArrowRight} size="lg" />
-              </Icon>
             </p>
             {edit ? (
               <Textarea
@@ -128,6 +113,12 @@ export default function Todo({ id, text, columnAt, completed, createdAt, updated
               )}
             </Level.Left>
             <Level.Right>
+              <Icon onClick={moveLeft} onKeyPress={moveLeft}>
+                <FontAwesomeIcon icon={faArrowLeft} size="lg" />
+              </Icon>
+              <Icon onClick={moveRight} onKeyPress={moveRight}>
+                <FontAwesomeIcon icon={faArrowRight} size="lg" />
+              </Icon>
               {edit ? (
                 <Icon className="space-right" onClick={handleUpdateTodo} onKeyPress={handleUpdateTodo}>
                   <FontAwesomeIcon icon={faFloppyDisk} size="lg" />
@@ -162,12 +153,12 @@ export default function Todo({ id, text, columnAt, completed, createdAt, updated
 Todo.propTypes = {
   id: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
-  columnAt: PropTypes.string.isRequired,
-  completed: PropTypes.bool.isRequired,
+  columnAt: PropTypes.string,
   createdAt: PropTypes.string.isRequired,
   updatedAt: PropTypes.string,
 };
 
 Todo.defaultProps = {
   updatedAt: null,
+  columnAt: '0',
 };

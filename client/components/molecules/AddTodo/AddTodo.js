@@ -17,6 +17,7 @@ export default function AddTodo() {
     if (text) {
       dispatch(attemptAddTodo(text));
       setText('');
+      window.location.reload();
     }
   };
 
